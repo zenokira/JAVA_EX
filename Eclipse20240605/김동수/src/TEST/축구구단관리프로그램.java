@@ -29,6 +29,7 @@ public class 축구구단관리프로그램 {
 				구단편집();
 				break;
 			case 3:
+				구단삭제();
 				break;
 			case 4:
 				구단보기();
@@ -82,9 +83,9 @@ public class 축구구단관리프로그램 {
 
 	int 구단선택() {
 		Scanner sc = new Scanner(System.in);
-		int n = sc.nextInt();
+		int n = sc.nextInt() - 1;
 		sc.nextLine();
-		return n - 1;
+		return n;
 	}
 
 	void 구단편집() {
@@ -106,7 +107,29 @@ public class 축구구단관리프로그램 {
 		구단리스트();
 		System.out.println("구단을 선택하세요 : ");
 		int n = 구단선택();
+		if ( n == count ) return ;
 		team[n].구단정보();
 		System.out.println();
+	}
+	
+	void 구단삭제() {
+		구단리스트();
+		System.out.println("구단을 선택하세요 : ");
+		int n = 구단선택();
+		
+		team[n].delete();
+		구단정렬(n);
+	}
+	
+	
+	void 구단정렬(int n)
+	{
+		count--;
+		int i;
+		for ( i = n; i < count; i++ )
+		{
+			team[i] = team[i+1];
+		}
+		team[count] = null;
 	}
 }

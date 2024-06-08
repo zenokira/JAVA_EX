@@ -56,6 +56,7 @@ public class 구단 {
 			코치삭제();
 			break;
 		case 4:
+			선수삭제();
 			break;
 		case 5:
 			return;
@@ -126,17 +127,69 @@ public class 구단 {
 		
 		System.out.print("삭제하고자 하는 코치번호를 입력해주세요 : ");
 		Scanner sc = new Scanner(System.in);
-		int n = sc.nextInt();
+		int n = sc.nextInt()-1;
 		sc.nextLine();
 		
-		System.out.println("> " + coach[n-1] + "가 삭제되었습니다.");
-				
-		coach[n-1] = null;	
-		
-
+		coach[n].delete();
+		코치정렬(n);
 	}
-	void swap(코치[] coach, int i)
+	
+	void 코치정렬(int n)
 	{
+		코치_count--;
+		int i;
+		for ( i = n; i < 코치_count; i++ )
+		{
+			coach[i] = coach[i+1];
+		}
+		coach[코치_count] = null;
+	}
+	
+	void 선수삭제() {
+		선수정보();
+		
+		System.out.print("삭제하고자 하는 선수번호를 입력해주세요 : ");
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt()-1;
+		sc.nextLine();
+		
+		player[n].delete();
+		선수정렬(n);
+	}
+	
+	void 선수정렬(int n)
+	{
+		선수_count--;
+		int i;
+		for ( i = n; i < 선수_count; i++ )
+		{
+			player[i] = player[i+1];
+		}
+		player[선수_count] = null;
+	}
+	
+	public void delete()
+	{
+		
+		for ( int i = 0; i < 코치_count; i++)
+		{
+			coach[i].delete(null);
+			coach[i] = null;
+		}
+		for ( int i = 0; i < 선수_count; i++)
+		{
+			player[i].delete(null);
+			player[i] = null;
+			
+		}
+		
+		coach = null;
+		player = null;
+		
+		System.out.println("> " + name + " 구단이 삭제되었습니다.");
+		name = null;
 
 	}
+	
+	
 }

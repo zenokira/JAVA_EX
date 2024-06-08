@@ -8,6 +8,18 @@ public class 선수 {
 		this.name = str;
 		this.pay = pay;
 	}
+	
+	public void delete()
+	{
+		System.out.println("> " + name + "가 삭제되었습니다.");
+		this.name = null;
+		this.pay = 0;
+	}
+	
+	public void delete(String str)
+	{
+		this.name = str;
+	}
 
 	@Override
 	public String toString()
