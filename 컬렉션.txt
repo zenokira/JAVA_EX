@@ -1,0 +1,40 @@
+-Vector-  가변배열 ( 동기, 사이즈 100% )
+   import util.Vector;
+Vector<T> name = new Vector<T>();
+Iterator 사용
+
+-Set- 중복X 데이터 집합
+   import util.Set;
+SortedSet	        - 오름차순 인터페이스
+HashSet	        - 해시테이블 set
+LinkedHashSet - 해시테이블 set, 순서
+TreeSet	        - red-black sortedSet
+
+-List- ( 비동기 )
+   import util.List;
+ArrayList
+(출력방법 
+1. 객체, 2. 인덱스 반복, 3. foreach
+4. Iterator, 5. 변환 배열[toArray -> toString]
+
+LinkedList
+List 인터페이스 + Queue 인터페이스
+
+
+-Queue-
+PriorityQueue 우선순위
+Comparator 를 사용하여 우선순위를 매겨줘야한다
+
+
+-Map-  <key, value> 맵핑
+
+HashMap  (내부적 배열)
+  -> 장점 : 검색 및 추가 좋음
+  -> 단점 : 처리순서 예측 힘들다
+
+TreeMap   (내부적 RedBlackTree)
+  -> 장점 : 키 값에 따라 정렬되어 순서대로 반복처리시 유리
+  -> 단점 : 추가시 순서 정렬이 필요하여 많은 추가시 불리
+
+LinkedHashMap (순서대로)
+  -> 장점 : 입력순서대로 저장되기에 순서가 중요한 경우 유리
