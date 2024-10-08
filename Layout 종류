@@ -1,0 +1,21 @@
+FlowLayout - 왼쪽에서 오른쪽으로 배치하며 한 줄이 차면 다음줄로 넘가 같은 방식으로 배치하는 방식
+
+BorderLayout - 동서남북,중앙 으로 배치하는 방식
+
+GridLayout - 같은 크기의 셀 격자에 컴포넌트들을 배치하는 방식
+왼 -> 오  위 -> 아래 로 추가
+
+GridBagLayout - 한 셀이 여러 셀에 걸쳐 확장 가능, 개수 같은 필요 없음
+좀더 융통성 있는 GridLayout 방식
+
+CardLayout - 카드덱처럼 하나 이상의 컴포넌트들을 같은 위치에 배치하는 방식
+
+BoxLayout - 하나의 열 or 행 에 배치하는 방식
+
+GroupLayout - 수직과 수평에 대해 별도로 배치,
+
+SpringLayout - 두 컴포넌트의 모서리 사이의 관계를 정의함으로써 배치형태 결정
+
+Null Layout - 배치관리자 사용 X
+
+AbsoluteLayout - 
