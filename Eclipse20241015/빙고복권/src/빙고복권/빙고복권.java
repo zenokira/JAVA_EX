@@ -1,6 +1,5 @@
 package 빙고복권;
 
-import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.Label;
@@ -9,14 +8,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -29,7 +29,7 @@ public class 빙고복권 extends JFrame implements ActionListener, ItemListener
 	private JButton rgBtn;
 	private JTextField edit;
 	private int total = 600;
-	private final int maxCnt = 4;
+	private LinkedList<Integer> ll_UseBtnIdx = new LinkedList<>();
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -136,6 +136,8 @@ public class 빙고복권 extends JFrame implements ActionListener, ItemListener
 				if (!isNumUse(idx)) {
 					btn.setText(Integer.toString(num[idx]));
 					flag[idx] = true;
+					ll_UseBtnIdx.add(idx);
+					Collections.sort(ll_UseBtnIdx);
 					break;
 				}
 			}
@@ -145,7 +147,11 @@ public class 빙고복권 extends JFrame implements ActionListener, ItemListener
 		
 		if(getUseBtnCnt() >= 3 && getUseBtnCnt() <= 4)
 		{
-			total += map.get(getUseBtnSum());
+			if(isBingo())
+			{
+				
+			}
+			total += map.get(getBingoSum());
 			edit.setText(Integer.toString(total));
 		}
 	}
@@ -154,6 +160,7 @@ public class 빙고복권 extends JFrame implements ActionListener, ItemListener
 		Arrays.fill(flag, false);
 		for (int i = 0; i < 9; i++)
 			clckBtn[i].setText("");
+		ll_UseBtnIdx.clear();
 	}
 
 	private boolean isNumUse(int _idx) {
@@ -162,23 +169,26 @@ public class 빙고복권 extends JFrame implements ActionListener, ItemListener
 	
 	private int getUseBtnCnt()
 	{
-		int n = 0;
-		for(JButton btn : clckBtn)
-		{
-			if(!btn.isEnabled()) n++;
-		}
-		return n;
+		return ll_UseBtnIdx.size();
 	}
 	
-	private int getUseBtnSum()
+	private int getBingoSum()
 	{
 		int sum = 0;
-		for(JButton btn : clckBtn)
+		
+		for(int i : ll_UseBtnIdx)
 		{
-			if(!btn.isEnabled())
+			if(isColBingo(i))
+				sum = parseInt(clckBtn[i]) + parseInt(clckBtn[i+1]) + parseInt(clckBtn[i+2]);
+			
+			else if(isRowBingo(i))
+				sum = parseInt(clckBtn[i]) + parseInt(clckBtn[i+3]) + parseInt(clckBtn[i+6]);
+			
+			else if(isDiaBingo(i))
 			{
-				sum += Integer.parseInt(btn.getText());
+				sum = parseInt(clckBtn[i]) + parseInt(clckBtn[i+4]) + parseInt(clckBtn[i+8]);
 			}
+			
 		}
 		return sum;
 	}
@@ -187,5 +197,37 @@ public class 빙고복권 extends JFrame implements ActionListener, ItemListener
 	public void itemStateChanged(ItemEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private boolean isBingo()
+	{
+		for(int n : ll_UseBtnIdx)
+		{
+			if(isColBingo(n) || isRowBingo(n) || isDiaBingo(n)) 
+				return true;
+		}
+		return false;
+	}
+	
+	private int parseInt(JButton btn)
+	{
+		return Integer.parseInt(btn.getText());
+	}
+	
+	private boolean isColBingo(int i)
+	{
+		if(i % 3 != 0) return false;
+		return flag[i] && flag[i+1] && flag[i+2];
+	}
+	private boolean isRowBingo(int i)
+	{
+		if(i >= 3) return false;
+		return flag[i] && flag[i+3] && flag[i+6];
+	}
+	private boolean isDiaBingo(int i)
+	{
+		if(i == 0)	return flag[i] && flag[i+4] && flag[i+8];
+		else if( i == 2) return flag[i] && flag[i+2] && flag[i+4];
+		else return false;
 	}
 }
